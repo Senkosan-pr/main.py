@@ -1,7 +1,7 @@
 import telebot
 import os
 import random
-bot = telebot.TeleBot("8366758576:AAH6pw0kN8rv1ebOWpYhmz9eIab46WMvqsU")
+bot = telebot.TeleBot("")
 
 
 images = os.listdir('images')
