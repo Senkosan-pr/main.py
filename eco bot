@@ -1,0 +1,44 @@
+import telebot
+import os
+import random
+bot = telebot.TeleBot("8366758576:AAH6pw0kN8rv1ebOWpYhmz9eIab46WMvqsU")
+
+
+images = os.listdir('images')
+count = 0
+
+
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    bot.reply_to(message, "Привет, я экобот и я расскажу тебе об экологии")
+
+@bot.message_handler(commands=['ecology'])
+def send_ecology(message):
+    bot.reply_to(message, "Экология – это наука о взаимодействии живых организмов между собой и с окружающей их средой, включая неживую природу и другие организмы, а также о функционировании биосистем на различных уровнях")
+
+@bot.message_handler(commands=['img'])
+def send_img(message):
+    global count
+    name = images[count]
+    with open(f'images/{name}','rb') as f:
+        bot.send_photo(message.chat.id, f)
+    count += 1
+    count = count % len(images)
+   
+@bot.message_handler(commands=['help'])
+def send_help(message):
+    bot.reply_to(message, """
+/start
+/help
+/ecology
+/img  
+                 """)
+    
+@bot.message_handler(commands=['site'])
+def send_site(message):
+    bot.reply_to(message, "<a href='https://greenwayglobal.com/'>Ecology site</a>", parse_mode='html')      
+
+bot.polling()
+
+
+
